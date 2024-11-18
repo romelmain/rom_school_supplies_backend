@@ -54,7 +54,7 @@ public class UserController {
         try {
             User userl = new User();
             userl = userService.login(user.getUsername(), user.getPassword());
-            System.out.println("Prueba Login: " + userl.getId());
+            System.out.println("Prueba Login: " + userl.getId() + "aaa");
             return new ResponseEntity<>("GetOne Result", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
