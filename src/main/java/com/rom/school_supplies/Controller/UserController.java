@@ -56,7 +56,7 @@ public class UserController {
         }
     }
 
-    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @CrossOrigin(origins = "http://localhost:5500")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
 
