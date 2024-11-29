@@ -19,6 +19,7 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @CrossOrigin(origins = "http://localhost:5500")
     @GetMapping()
     public ResponseEntity<?> findAll() {
         try {
