@@ -28,7 +28,7 @@ import lombok.*;
 public class ProductPrice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productprice_sequence")
-    @SequenceGenerator(name = "productprice_sequence", sequenceName = "productprice_sequence", allocationSize = 100)
+    @SequenceGenerator(name = "productprice_sequence", sequenceName = "productprice_sequence", allocationSize = 1)
     private Integer id;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -1,13 +1,13 @@
 package com.rom.school_supplies.Entity;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+
+import java.io.Serializable;
 import lombok.*;
 
 @AllArgsConstructor
@@ -16,17 +16,13 @@ import lombok.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "productos")
-public class Product implements Serializable {
+@Table(name = "status_carrito")
+public class StatusCart implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
-    @SequenceGenerator(name = "product_sequence", sequenceName = "product_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "statuscart_sequence")
+    @SequenceGenerator(name = "statuscart_sequence", sequenceName = "statuscart_sequence", allocationSize = 1)
     private Integer id;
 
-    private String descripcion;
-
-    private String imagen;
-
-    private String nombre;
+    private String status;
 
 }
