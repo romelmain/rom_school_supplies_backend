@@ -10,7 +10,6 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.*;
 
@@ -32,7 +31,7 @@ public class ProductCart implements Serializable {
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "id_producto_carrito")
+    @JoinColumn(name = "id_producto_precio")
     private ProductPrice productPrice;
 
 }

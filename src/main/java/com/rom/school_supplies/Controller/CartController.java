@@ -69,14 +69,13 @@ public class CartController {
             cart.setUser(user);
             Cart newCart = cartService.createCart(cart);
             // 4.- ProductCart
-            List<ProductPriceDto> ProductPrice = cartdto.getProductPrice();
-
-            for (ProductPriceDto productPriceDto : ProductPrice) {
-                ProductCart productCart = new ProductCart();
-                productCart.setCart(newCart);
-                productCart.setId(productPriceDto.getId());
-                productCartService.createProductCart(productCart);
-            }
+            ProductPriceDto productPriceDto = cartdto.getProductPrice();
+            ProductCart productCart = new ProductCart();
+            productCart.setCart(newCart);
+            ProductPrice productPrice = new ProductPrice();
+            productPrice.setId(productPriceDto.getId());
+            productCart.setProductPrice(productPrice);
+            productCartService.createProductCart(productCart);
 
             return new ResponseEntity<>(newCart, HttpStatus.CREATED);
         } catch (Exception e) {

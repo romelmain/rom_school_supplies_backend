@@ -23,6 +23,8 @@ public class CartDto {
 
     private UserDto user;
 
-    List<ProductPriceDto> productPrice;
+    private List<ProductPriceDto> ListProductPrice;
+
+    private ProductPriceDto productPrice;
 
 }
