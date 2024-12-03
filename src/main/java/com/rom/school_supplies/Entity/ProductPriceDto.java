@@ -1,6 +1,8 @@
 package com.rom.school_supplies.Entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.*;
 
@@ -13,7 +15,8 @@ public class ProductPriceDto {
 
     private Integer id;
 
-    private Date fecha;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime fecha;
 
     private double precio;
 
