@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.rom.school_supplies.Entity.Product;
+import com.rom.school_supplies.Entity.ProductPrice;
+import com.rom.school_supplies.Service.ProductPriceService;
 import com.rom.school_supplies.Service.ProductService;
 
 @AllArgsConstructor
@@ -18,6 +20,7 @@ import com.rom.school_supplies.Service.ProductService;
 public class ProductController {
 
     private final ProductService productService;
+    private final ProductPriceService productPriceService;
 
     @CrossOrigin(origins = "http://localhost:5500")
     @GetMapping()
@@ -28,6 +31,17 @@ public class ProductController {
 
             List<Product> products = productService.getAllProduct();
             return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:5500")
+    @GetMapping("/price")
+    public ResponseEntity<?> getProductPrice() {
+        try {
+            List<ProductPrice> listProductPrice = productPriceService.getProductsPrice();
+            return new ResponseEntity<>(listProductPrice, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
