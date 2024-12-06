@@ -13,4 +13,11 @@ public class MyConfigService {
         return userMessageNotFound;
     }
 
+    @Value("${product.message.notfound}")
+    private String productMessageNotFound;
+
+    public String getProductMessageNotFound() {
+        return productMessageNotFound;
+    }
+
 }

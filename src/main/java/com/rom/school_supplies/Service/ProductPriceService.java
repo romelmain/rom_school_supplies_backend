@@ -23,4 +23,8 @@ public class ProductPriceService {
         return productPriceRepository.getProductsPrice();
     }
 
+    public ProductPrice getProductsPriceById(Integer idProduct) {
+        return productPriceRepository.getProductsPriceById(idProduct);
+    }
+
 }

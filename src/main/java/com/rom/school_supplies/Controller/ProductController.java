@@ -5,12 +5,15 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.rom.school_supplies.Entity.Message;
 import com.rom.school_supplies.Entity.Product;
 import com.rom.school_supplies.Entity.ProductPrice;
+import com.rom.school_supplies.Service.MyConfigService;
 import com.rom.school_supplies.Service.ProductPriceService;
 import com.rom.school_supplies.Service.ProductService;
 
@@ -22,13 +25,13 @@ public class ProductController {
     private final ProductService productService;
     private final ProductPriceService productPriceService;
 
+    @Autowired
+    private MyConfigService myConfigService;
+
     @CrossOrigin(origins = "http://localhost:5500")
     @GetMapping()
     public ResponseEntity<?> findAll() {
         try {
-            // TODO Implement Your Logic To Get Data From Service Layer Or Directly From
-            // Repository Layer
-
             List<Product> products = productService.getAllProduct();
             return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (Exception e) {
@@ -50,10 +53,18 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<?> find(@PathVariable Integer id) {
         try {
-            // * // TODO Implement Your Logic To Get Data From Service Layer Or Directly
-            // From
-            // * // Repository Layer
-            return new ResponseEntity<>("GetOne Result", HttpStatus.OK);
+            ProductPrice productPrice = null;
+            productPrice = productPriceService.getProductsPriceById(id);
+            ResponseEntity responseEntity;
+            if (productPrice != null) {
+                responseEntity = new ResponseEntity<>(productPrice, HttpStatus.OK);
+            } else {
+                Message message = new Message();
+                message.setMessage(myConfigService.getProductMessageNotFound());
+                responseEntity = new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            }
+
+            return responseEntity;
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
