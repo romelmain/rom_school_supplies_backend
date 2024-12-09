@@ -66,7 +66,7 @@ public class CartController {
             List<ProductCart> listProductCart = productCartService.getActiveCart(id);
             CartDto cartDto = new CartDto();
             List<ProductPriceDto> listProductPriceDto = new ArrayList<ProductPriceDto>();
-            ProductDto productDto = new ProductDto();
+
             StatusDto statusDto = new StatusDto();
             UserDto userDto = new UserDto();
 
@@ -81,11 +81,19 @@ public class CartController {
             cartDto.setUser(userDto);
 
             for (ProductCart productCart : listProductCart) {
+                ProductDto productDto = new ProductDto();
+
                 ProductPriceDto productPriceDto = new ProductPriceDto();
                 productPriceDto.setId(productCart.getProductPrice().getId());
                 productPriceDto.setFecha(productCart.getProductPrice().getFecha());
                 productPriceDto.setPrecio(productCart.getProductPrice().getPrecio());
                 productPriceDto.setStatus(productCart.getProductPrice().getStatus());
+                productDto.setId(productCart.getProductPrice().getProduct().getId());
+                productDto.setDescripcion(productCart.getProductPrice().getProduct().getDescripcion());
+                productDto.setImagen(productCart.getProductPrice().getProduct().getImagen());
+                productDto.setNombre(productCart.getProductPrice().getProduct().getNombre());
+                productPriceDto.setProduct(productDto);
+
                 listProductPriceDto.add(productPriceDto);
             }
 

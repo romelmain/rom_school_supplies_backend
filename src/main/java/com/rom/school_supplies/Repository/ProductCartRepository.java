@@ -12,7 +12,8 @@ import com.rom.school_supplies.Entity.ProductCart;
 @Repository
 public interface ProductCartRepository extends JpaRepository<ProductCart, Long> {
 
-    @Query(value = "select a.id,a.id_producto_precio,a.id_carrito from producto_carrito a "
+    @Query(value = "select a.id,a.id_producto_precio,a.id_carrito,"
+            + "d.nombre,d.imagen,d.descripcion, d.id as id_producto from producto_carrito a "
             + "inner join carrito b on (a.id_carrito = b.id) "
             + "inner join producto_precio c on (a.id_producto_precio = c.id) "
             + "inner join productos d on (c.id_producto = d.id) "

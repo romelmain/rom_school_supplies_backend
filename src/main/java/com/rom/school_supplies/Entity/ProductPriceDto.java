@@ -22,6 +22,6 @@ public class ProductPriceDto {
 
     private Boolean status;
 
-    private Product product;
+    private ProductDto product;
 
 }
