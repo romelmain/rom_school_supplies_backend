@@ -57,6 +57,7 @@ public class CartController {
      * 
      */
 
+    @CrossOrigin(origins = "http://localhost:5500")
     @GetMapping("/{id}")
     public ResponseEntity<?> find(@PathVariable Integer id) {
         try {
