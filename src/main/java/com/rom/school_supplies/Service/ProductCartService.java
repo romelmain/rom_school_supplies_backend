@@ -1,5 +1,7 @@
 package com.rom.school_supplies.Service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.rom.school_supplies.Entity.ProductCart;
@@ -21,4 +23,9 @@ public class ProductCartService {
         return productCartRepository.save(productCart);
     }
 
+    public List<ProductCart> getActiveCart(Integer idCart) {
+
+        return productCartRepository.getActiveCart(idCart);
+
+    }
 }
