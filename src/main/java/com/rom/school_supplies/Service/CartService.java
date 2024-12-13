@@ -21,4 +21,14 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    public Integer validateCart(Integer userId) {
+        Integer cartId = 0;
+        Cart cart = new Cart();
+        cart = cartRepository.validateCart(userId);
+        if (cart != null && cart.getId() > 0) {
+            cartId = cart.getId();
+        }
+        return cartId;
+    }
+
 }

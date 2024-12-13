@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rom.school_supplies.Entity.LoginDto;
 import com.rom.school_supplies.Entity.Message;
 import com.rom.school_supplies.Entity.User;
+import com.rom.school_supplies.Entity.UserDto;
+import com.rom.school_supplies.Service.CartService;
 import com.rom.school_supplies.Service.MyConfigService;
 import com.rom.school_supplies.Service.UserService;
 
@@ -28,6 +31,8 @@ import lombok.AllArgsConstructor;
 public class UserController {
 
     private final UserService userService;
+
+    private final CartService cartService;
 
     @Autowired
     private MyConfigService myConfigService;
@@ -66,7 +71,15 @@ public class UserController {
             userl = userService.login(user.getUsername(), user.getPassword());
 
             if (userl instanceof User) {
-                responseEntity = new ResponseEntity<>(userl, HttpStatus.OK);
+                System.out.println(userl.getId());
+                Integer cartId = cartService.validateCart(userl.getId());
+                LoginDto loginDto = new LoginDto();
+                loginDto.setCartId(cartId);
+                UserDto userDto = new UserDto();
+                userDto.setUsername(userl.getUsername());
+                userDto.setId(userl.getId());
+                loginDto.setUser(userDto);
+                responseEntity = new ResponseEntity<>(loginDto, HttpStatus.OK);
             } else {
                 Message message = new Message();
                 message.setMessage(myConfigService.getUserMessageNotFound());
