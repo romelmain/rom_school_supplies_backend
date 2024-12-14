@@ -94,6 +94,7 @@ public class CartController {
                 productDto.setImagen(productCart.getProductPrice().getProduct().getImagen());
                 productDto.setNombre(productCart.getProductPrice().getProduct().getNombre());
                 productPriceDto.setProduct(productDto);
+                productPriceDto.setCantidad(productCart.getCantidad());
 
                 listProductPriceDto.add(productPriceDto);
             }
@@ -135,12 +136,23 @@ public class CartController {
             }
 
             // 4.- ProductCart
-            ProductPriceDto productPriceDto = cartdto.getProductPrice();
+            Integer quantity = 1;
             ProductCart productCart = new ProductCart();
-            productCart.setCart(newCart);
-            ProductPrice productPrice = new ProductPrice();
-            productPrice.setId(productPriceDto.getId());
-            productCart.setProductPrice(productPrice);
+            productCart = productCartService.getProductCartByIdProductPrice(newCart.getId(), cartdto.getUser().getId(),
+                    cartdto.getProductPrice().getId());
+
+            if (productCart == null) {
+                ProductPriceDto productPriceDto = cartdto.getProductPrice();
+                productCart = new ProductCart();
+                productCart.setCart(newCart);
+                productCart.setCantidad(quantity);
+                ProductPrice productPrice = new ProductPrice();
+                productPrice.setId(productPriceDto.getId());
+                productCart.setProductPrice(productPrice);
+            } else {
+                quantity = productCart.getCantidad() + 1;
+                productCart.setCantidad(quantity);
+            }
             productCartService.createProductCart(productCart);
 
             return new ResponseEntity<>(newCart, HttpStatus.CREATED);

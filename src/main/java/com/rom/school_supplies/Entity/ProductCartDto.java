@@ -11,5 +11,7 @@ public class ProductCartDto {
 
     private Integer id;
 
+    private Integer cantidad;
+
     private ProductPrice productPrice;
 }

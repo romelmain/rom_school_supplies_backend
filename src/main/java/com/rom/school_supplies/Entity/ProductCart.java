@@ -26,6 +26,8 @@ public class ProductCart implements Serializable {
     @SequenceGenerator(name = "productcart_sequence", sequenceName = "productcart_sequence", allocationSize = 1)
     private Integer id;
 
+    private Integer cantidad;
+
     @ManyToOne
     @JoinColumn(name = "id_carrito")
     private Cart cart;

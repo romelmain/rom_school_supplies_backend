@@ -24,4 +24,6 @@ public class ProductPriceDto {
 
     private ProductDto product;
 
+    private Integer cantidad;
+
 }

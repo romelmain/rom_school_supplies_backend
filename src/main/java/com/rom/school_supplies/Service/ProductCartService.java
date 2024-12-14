@@ -2,6 +2,7 @@ package com.rom.school_supplies.Service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.rom.school_supplies.Entity.ProductCart;
@@ -27,5 +28,9 @@ public class ProductCartService {
 
         return productCartRepository.getActiveCart(idCart);
 
+    }
+
+    public ProductCart getProductCartByIdProductPrice(Integer idCart, Integer idUser, Integer idProductPrice) {
+        return productCartRepository.getProductCartByIdProductPrice(idCart, idUser, idProductPrice);
     }
 }
