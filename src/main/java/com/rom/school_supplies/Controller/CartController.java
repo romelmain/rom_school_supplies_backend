@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -108,7 +109,9 @@ public class CartController {
     @CrossOrigin(origins = "http://localhost:5500")
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody CartDto cartdto) {
+        Cart newCart = null;
         try {
+
             // 1.- Status
             StatusCart statusCart = new StatusCart();
             statusCart.setId(cartdto.getStatusCart().getId());
@@ -116,11 +119,21 @@ public class CartController {
             User user = new User();
             user.setId(cartdto.getUser().getId());
             // 3.- Cart
-            Cart cart = new Cart();
-            cart.setFecha(cartdto.getDate());
-            cart.setStatusCart(statusCart);
-            cart.setUser(user);
-            Cart newCart = cartService.createCart(cart);
+            Optional<Cart> opCart = cartService.getCartByUserId(cartdto.getUser().getId());
+            if (opCart.isPresent()) {
+                newCart = opCart.get();
+                System.out.println("OBTIENE EL CARRITO");
+                System.out.println(newCart.getFecha());
+            } else {
+                System.out.println("No hay id cart");
+                System.out.println("CREANDO CARRITO");
+                Cart cart = new Cart();
+                cart.setFecha(cartdto.getDate());
+                cart.setStatusCart(statusCart);
+                cart.setUser(user);
+                newCart = cartService.createCart(cart);
+            }
+
             // 4.- ProductCart
             ProductPriceDto productPriceDto = cartdto.getProductPrice();
             ProductCart productCart = new ProductCart();
@@ -132,6 +145,7 @@ public class CartController {
 
             return new ResponseEntity<>(newCart, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println("hjlkhljkh  " + e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
